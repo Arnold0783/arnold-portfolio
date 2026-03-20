@@ -48,8 +48,15 @@ export default function App() {
   return () => clearInterval(interval);
 }, []);
 
+useEffect(() => {
+  const interval = setInterval(() => {
+    setImageIndex((prev) => (prev + 1) % heroImages.length);
+  }, 4000);
+
+  return () => clearInterval(interval);
+}, []);
   return (
-    <div className="relative bg-black text-white min-h-screen overflow-hidden font-sans">
+    <div className="relative bg-black text-white min-h-screen overflow-x-hidden font-sans px-4 md:px-0">
 
       {/* Background Glows */}
       <div className="absolute inset-0 animate-gradientBG opacity-50" />
@@ -62,38 +69,40 @@ export default function App() {
         transition={{ duration: 12, repeat: Infinity }}
       />
 
+<div className="relative z-20 flex flex-col md:flex-row items-center justify-between px-4 md:px-12 pt-10 gap-10">
       {/* Left Section: Name + Bio + Buttons */}
-      <div className="absolute top-4 left-12 z-20 flex flex-col items-start gap-6">
+      <div className="flex flex-col items-center md:items-start gap-6 w-full md:w-1/2">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-6xl md:text-7xl font-extrabold uppercase tracking-tight bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(0,0,255,0.5)]"
+          className="text-3xl sm:text-4x1 md:text-6xl font-extrabold uppercase tracking-tight bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(0,0,255,0.5)] whitespace-nowrap text-center md:text-left"
         >
           ARNOLD NDLOVU
         </motion.h1>
 
         {/* Bio centered under name */}
-        <div className="w-full flex justify-center">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1 }}
-            className="text-gray-400 text-lg md:text-xl max-w-sm text-center"
-          >
-            Passionate Software Engineer/Developer & IT enthusiast specializing in AI, full-stack web development, and digital solutions. Committed to building modern, efficient, and secure applications.
-          </motion.p>
-        </div>
+        <div className="w-full max-w-md text-center">
+  <motion.p
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 0.8, duration: 1 }}
+    className="text-gray-400 text-lg md:text-xl leading-relaxed"
+  >
+    Passionate Software Engineer/Developer & IT enthusiast specializing in AI, full-stack web development, and digital solutions.
+    Committed to building modern, efficient, and secure applications.
+  </motion.p>
+</div>
 
         {/* Buttons grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6 justify-items-center">
           {navItems.map((item, i) => (
             <motion.button
               key={i}
               onClick={() => setActiveSection(item.name)}
               whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
               whileTap={{ scale: 0.95 }}
-              className="flex flex-col items-center justify-center gap-1 w-32 h-20 rounded-full bg-white/5 backdrop-blur-xl border border-white/20 text-sm font-bold uppercase text-white transition-all shadow-lg"
+              className="flex flex-col items-center justify-center gap-1 w-24 sm:w-28 md:w-32 h-16 sm:h-20 rounded-full bg-white/5 backdrop-blur-xl border border-white/20 text-sm font-bold uppercase text-white transition-all shadow-lg"
             >
               {item.icon}
               <span>{item.name}</span>
@@ -103,34 +112,40 @@ export default function App() {
       </div>
 
       {/* Right Section: Hero + Welcome Card */}
-      <div className="absolute top-32 right-16 flex flex-col items-end gap-4">
+  <div className="flex flex-col items-center md:items-end gap-4 w-full md:w-1/2 mt-20">
         {/* Hero Image */}
-        <motion.div
-          key={imageIndex}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 1 }}
-          className="w-64 md:w-72 h-64 md:h-72 rounded-2xl border border-white/20 overflow-hidden relative"
-        >
-          <img
-            src={heroImages[imageIndex]}
-            alt="Arnold"
-            className="w-full h-full object-contain rounded-2xl shadow-[0_0_40px_rgba(0,0,255,0.25)] border border-white/20"
-          />
-          <div
-            className="absolute inset-0 rounded-2xl pointer-events-none"
-            style={{
-              boxShadow: "0 0 60px 20px rgba(63, 81, 181, 0.25)",
-              filter: "blur(40px)",
-              zIndex: -1,
-            }}
-          />
-        </motion.div>
+       <AnimatePresence mode="wait">
+  <motion.div
+  key={imageIndex}
+  drag="x"
+  dragConstraints={{ left: 0, right: 0 }}
+  onDragEnd={(e, info) => {
+    if (info.offset.x < -50) {
+      setImageIndex((prev) => (prev + 1) % heroImages.length);
+    }
+    if (info.offset.x > 50) {
+      setImageIndex((prev) =>
+        prev === 0 ? heroImages.length - 1 : prev - 1
+      );
+    }
+  }}
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -40 }}
+    transition={{ duration: 0.6 }}
+    className="w-48 sm:w-56 md:w-72 h-48 sm:h-56 md:h-72 flex items-center justify-center rounded-2xl border border-white/20 overflow-hidden bg-white/5 backdrop-blur-xl"
+  >
+    <img
+      src={heroImages[imageIndex]}
+      alt="Arnold"
+      className="max-w-full max-h-full object-contain"
+    />
+  </motion.div>
+</AnimatePresence>
 
         {/* Welcome Card */}
        <motion.div
-  className="w-64 md:w-72 p-4 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/20"
+  className="w-48 sm:w-56 md:w-72 p-3 sm:p-4 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/20"
   whileHover={{ scale: 1.03 }}
 >
   <h2 className="text-lg font-bold mb-2 uppercase text-center">What I Do</h2>
@@ -149,7 +164,7 @@ export default function App() {
   </AnimatePresence>
 </motion.div>
       </div>
-
+</div>
       {/* Slide Panel */}
       <AnimatePresence>
   {activeSection && (
@@ -187,7 +202,7 @@ export default function App() {
     </motion.div>
   )}
 </AnimatePresence>
-<footer className="w-full py-4 bg-white/0 backdrop-blur-xl border-t border-white/20 text-center text-gray-300 text-[5px] sticky bottom-0">
+<footer className="w-full py-4 text-center text-gray-300 text-[10px] sticky bottom-0">
   Developed By Arnold Ndlovu ©2025
 </footer>
 
@@ -460,56 +475,3 @@ function CVSection() {
     </div>
   );
 }
-
-<div className="relative min-h-screen flex flex-col">
-  <div className="flex-grow">
-    {/* Main content goes here */}
-  </div>
-
-  <motion.footer
-    className="w-full py-6 bg-white/10 backdrop-blur-xl border-t border-white/20 flex flex-col md:flex-row justify-between items-center px-8 sticky bottom-0 z-50"
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    whileHover={{ y: -5, boxShadow: "0 0 30px rgba(63,81,181,0.5)" }}
-    transition={{ duration: 0.5 }}
-  >
-    {/* Left side */}
-    <span className="text-gray-400 text-sm mb-2 md:mb-0">
-      © {new Date().getFullYear()} Arnold Ndlovu. All rights reserved.
-    </span>
-
-    {/* Right side icons */}
-    <div className="flex gap-4">
-      <a
-        href="https://github.com/Arnold0783"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-white hover:text-blue-400 transition-colors"
-      >
-        <FaGithub size={20} />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/arnold-ndlovu-6b36103a6"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-white hover:text-blue-500 transition-colors"
-      >
-        <FaLinkedin size={20} />
-      </a>
-      <a
-        href="mailto:arnoldndlovy@gmail.com"
-        className="text-white hover:text-red-400 transition-colors"
-      >
-        <FaEnvelope size={20} />
-      </a>
-      <a
-        href="https://wa.me/263781690278"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-white hover:text-green-400 transition-colors"
-      >
-        <FaWhatsapp size={20} />
-      </a>
-    </div>
-  </motion.footer>
-</div>
