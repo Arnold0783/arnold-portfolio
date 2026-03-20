@@ -118,7 +118,7 @@ useEffect(() => {
               className="flex flex-col items-center justify-center gap-1 w-24 sm:w-28 md:w-32 h-16 sm:h-20 rounded-full bg-white/5 backdrop-blur-xl border border-white/20 text-sm font-bold uppercase text-white transition-all shadow-lg"
             >
               {item.icon}
-              <span>{item.name}</span>
+              <span className="whitespace-normal break-words text-center text-[10px] sm:text-sm">{item.name}</span>
             </motion.button>
           ))}
         </div>
