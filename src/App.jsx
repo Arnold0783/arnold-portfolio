@@ -42,6 +42,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState(null);
   const [messageIndex, setMessageIndex] = useState(0);
   const [imageIndex, setImageIndex] = useState(0);
+  const [cursor, setCursor] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
   const interval = setInterval(() => setMessageIndex(prev => (prev + 1) % whatIDo.length), 4000);
@@ -56,8 +57,14 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, []);
   return (
-    <div className="relative bg-black text-white min-h-screen overflow-x-hidden font-sans px-4 md:px-0">
-
+    <div
+  onMouseMove={(e) => setCursor({ x: e.clientX, y: e.clientY })}
+  onTouchMove={(e) => {
+    const touch = e.touches[0];
+    setCursor({ x: touch.clientX, y: touch.clientY });
+  }}
+  className="relative bg-black text-white min-h-screen overflow-x-hidden font-sans px-4 md:px-0"
+>
       {/* Background Glows */}
       <div className="absolute inset-0 animate-gradientBG opacity-50" />
       <motion.div className="absolute top-0 left-0 w-72 h-72 bg-blue-500/20 blur-3xl rounded-full"
@@ -68,6 +75,12 @@ useEffect(() => {
         animate={{ x: [0, -60, 0], y: [0, -50, 0] }}
         transition={{ duration: 12, repeat: Infinity }}
       />
+       {/* Custom Glowing Cursor */}
+<motion.div 
+  className="fixed w-36 h-36 bg-blue-500/20 rounded-full blur-3xl pointer-events-none z-50"
+  animate={{ x: cursor.x - 72, y: cursor.y - 72 }}
+  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+/>
 
 <div className="relative z-20 flex flex-col md:flex-row items-center justify-between px-4 md:px-12 pt-10 gap-10">
       {/* Left Section: Name + Bio + Buttons */}
