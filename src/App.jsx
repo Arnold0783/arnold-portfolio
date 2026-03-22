@@ -16,7 +16,7 @@ import { SiJavascript, SiTypescript, SiTailwindcss, SiNextdotjs, SiMysql } from 
 import { FaUserGraduate, FaBirthdayCake, FaGlobe, FaMale, FaBook, FaBriefcase } from "react-icons/fa";
 import { FaEnvelope, FaPhone, FaWhatsapp, FaLinkedin, FaGithub } from "react-icons/fa";
 import { FaCertificate, FaJava } from "react-icons/fa6";
-import { FaBrain, FaLaptopCode, FaServer, FaNetworkWired, FaMobileAlt } from "react-icons/fa";
+import { FaBrain, FaLaptopCode, FaServer, FaNetworkWired, FaMobileAlt, FaMicrophone, FaChartBar, FaDatabase } from "react-icons/fa";
 /* ================= NAV ================= */
 const navItems = [
   { name: "About", icon: <User size={24} /> },
@@ -270,24 +270,34 @@ function ProjectsSection() {
   const projects = [
     {
       title: "Dr Chiremba",
-      description: "AI-powered telemedicine platform built with React, Node.js, Express, MongoDB, and TailwindCSS.",
-      github: "https://github.com/yourusername/dr-chiremba",
-      live: "https://dr-chiremba-demo.com",
-      icons: [<FaReact className="text-blue-400 w-5 h-5" />, <FaNodeJs className="text-green-500 w-5 h-5" />, <SiTailwindcss className="text-teal-400 w-5 h-5" />],
+      description: "a voice-enabled AI medical assistant built for Zimbabwe 🇿🇼 that helps people understand symptoms and receive basic medical guidance using text or voice.",
+      github: "https://github.com/Arnold0783/dr-chiremba",
+      live: "https://dr-chiremba.onrender.com",
+      icons: [<FaReact className="text-blue-400 w-5 h-5" />,
+        <FaNodeJs className="text-green-500 w-5 h-5" />,
+        <FaBrain className="text-purple-400 w-5 h-5" />,
+        <FaMicrophone className="text-teal-400 w-5 h-5" />,
+        <FaCertificate className="text-yellow-400 w-5 h-5" />],
     },
     {
-      title: "Ecocash Tracker",
-      description: "Finance tracker for Ecocash transactions using React, Firebase, and Chart.js for visualization.",
-      github: "https://github.com/yourusername/ecocash-tracker",
-      live: "https://ecocash-tracker-demo.com",
-      icons: [<FaReact className="text-blue-400 w-5 h-5" />, <SiJavascript className="text-yellow-300 w-5 h-5" />, <SiMysql className="text-blue-600 w-5 h-5" />],
+      title: " Smart Ecocash Tracker",
+     description: "Web app to track income and expenses in ZWL and USD. Features live exchange rates, charts, budgets, insights, CSV export, and smart category suggestions.",
+      github: "https://github.com/Arnold0783/ecocash_tracker",
+      live: "https://ecocash-tracker.onrender.com/", 
+      icons: [
+        <FaPython className="text-yellow-400 w-5 h-5" />,
+        <SiTailwindcss className="text-teal-400 w-5 h-5" />,
+        <SiJavascript className="text-yellow-300 w-5 h-5" />,
+        <FaChartBar className="text-green-400 w-5 h-5" />,
+        <FaDatabase className="text-indigo-400 w-5 h-5" />
+      ],
     },
     {
-      title: "CV Analyzer",
-      description: "Resume/CV analyzer using Python, Flask, and NLP techniques to extract skills and experience.",
-      github: "https://github.com/yourusername/cv-analyzer",
-      live: "https://cv-analyzer-demo.com",
-      icons: [<FaPython className="text-yellow-400 w-5 h-5" />, <SiJavascript className="text-yellow-300 w-5 h-5" />, <FaNodeJs className="text-green-500 w-5 h-5" />],
+      title: "Smart CV Analyzer",
+      description: "AI + NLP-powered CV analyzer and optimizer. Upload your resume, check ATS match score, detect missing skills, and get AI rewrite suggestions.",
+      github: "https://github.com/Arnold0783/cv-analyzer",
+      live: "https://cv-analyzer-o3q5.onrender.com/",
+      icons: [<FaPython className="text-yellow-400 w-5 h-5" />, <SiJavascript className="text-yellow-300 w-5 h-5" />, <FaBrain className="text-purple-400 w-5 h-5" />],
     },
   ];
 
