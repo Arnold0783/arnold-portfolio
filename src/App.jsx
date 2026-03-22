@@ -296,7 +296,7 @@ function ProjectsSection() {
       title: "Smart CV Analyzer",
       description: "AI + NLP-powered CV analyzer and optimizer. Upload your resume, check ATS match score, detect missing skills, and get AI rewrite suggestions.",
       github: "https://github.com/Arnold0783/cv-analyzer",
-      live: "https://cv-analyzer-o3q5.onrender.com/",
+      live: "https://smart-cv-analyzer.onrender.com/",
       icons: [<FaPython className="text-yellow-400 w-5 h-5" />, <SiJavascript className="text-yellow-300 w-5 h-5" />, <FaBrain className="text-purple-400 w-5 h-5" />],
     },
   ];
