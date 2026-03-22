@@ -271,7 +271,7 @@ function ProjectsSection() {
     {
       title: "Dr Chiremba",
       description: "a voice-enabled AI medical assistant built for Zimbabwe 🇿🇼 that helps people understand symptoms and receive basic medical guidance using text or voice.",
-      github: "https://github.com/Arnold0783/dr-chiremba",
+      github: "https://github.com/Arnold0783/chiremba-ai",
       live: "https://dr-chiremba.onrender.com",
       icons: [<FaReact className="text-blue-400 w-5 h-5" />,
         <FaNodeJs className="text-green-500 w-5 h-5" />,
