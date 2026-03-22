@@ -224,25 +224,89 @@ useEffect(() => {
 }
 
 /* ===== Sections ===== */
-function ProjectsSection() {
+
+function ProjectCard({ title, description, github, live, icons }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <ProjectCard title="Telemedicine Platform" description="Full-stack React & Node.js AI healthcare system" />
-      <ProjectCard title="Portfolio Website" description="Modern React + Framer Motion portfolio site" />
-      <ProjectCard title="Finance Dashboard" description="React + Tailwind + Chart.js dashboard project" />
-      <ProjectCard title="E-commerce Store" description="Next.js + Stripe e-commerce system" />
+    <div className="p-4 rounded-xl bg-white/5 backdrop-blur-xl border border-white/20 flex flex-col justify-between">
+      <div>
+        <h3 className="font-bold text-lg">{title}</h3>
+        <p className="text-gray-400 mt-2 text-sm">{description}</p>
+        
+        {/* Tech Icons */}
+        <div className="flex gap-2 mt-3">
+          {icons?.map((icon, index) => (
+            <div key={index} className="flex items-center justify-center">{icon}</div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex gap-4 mt-4">
+        {github && (
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1 bg-blue-600 rounded-lg hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition"
+          >
+            GitHub
+          </a>
+        )}
+        {live && (
+          <a
+            href={live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1 bg-green-600 rounded-lg hover:bg-green-500 text-white text-xs sm:text-sm font-semibold transition"
+          >
+            Live Demo
+          </a>
+        )}
+      </div>
     </div>
   );
 }
 
-function ProjectCard({ title, description }) {
+function ProjectsSection() {
+  const projects = [
+    {
+      title: "Dr Chiremba",
+      description: "AI-powered telemedicine platform built with React, Node.js, Express, MongoDB, and TailwindCSS.",
+      github: "https://github.com/yourusername/dr-chiremba",
+      live: "https://dr-chiremba-demo.com",
+      icons: [<FaReact className="text-blue-400 w-5 h-5" />, <FaNodeJs className="text-green-500 w-5 h-5" />, <SiTailwindcss className="text-teal-400 w-5 h-5" />],
+    },
+    {
+      title: "Ecocash Tracker",
+      description: "Finance tracker for Ecocash transactions using React, Firebase, and Chart.js for visualization.",
+      github: "https://github.com/yourusername/ecocash-tracker",
+      live: "https://ecocash-tracker-demo.com",
+      icons: [<FaReact className="text-blue-400 w-5 h-5" />, <SiJavascript className="text-yellow-300 w-5 h-5" />, <SiMysql className="text-blue-600 w-5 h-5" />],
+    },
+    {
+      title: "CV Analyzer",
+      description: "Resume/CV analyzer using Python, Flask, and NLP techniques to extract skills and experience.",
+      github: "https://github.com/yourusername/cv-analyzer",
+      live: "https://cv-analyzer-demo.com",
+      icons: [<FaPython className="text-yellow-400 w-5 h-5" />, <SiJavascript className="text-yellow-300 w-5 h-5" />, <FaNodeJs className="text-green-500 w-5 h-5" />],
+    },
+  ];
+
   return (
-    <div className="p-4 rounded-xl bg-white/5 backdrop-blur-xl border border-white/20">
-      <h3 className="font-bold text-lg">{title}</h3>
-      <p className="text-gray-400 mt-2 text-sm">{description}</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {projects.map((p, i) => (
+        <ProjectCard
+          key={i}
+          title={p.title}
+          description={p.description}
+          github={p.github}
+          live={p.live}
+          icons={p.icons}
+        />
+      ))}
     </div>
   );
 }
+
 
 function SkillsSection() {
   const skillsTop = [
